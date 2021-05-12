@@ -4,7 +4,7 @@
   "scripts": {
     "runall": "lerna run --parallel start",
     "buildall": "bash ./build.sh",
-    "prod": "node build/backend/server.js"
+    "prod": "node build/server.js"
   },
   "workspaces": [
     "packages/*"

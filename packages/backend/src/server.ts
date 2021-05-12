@@ -7,7 +7,7 @@ import path from 'path';
 import ads from './routes/ads';
 
 dotenv.config();
-if (!process.env.FRONTEND_DESTINATION) {
+if (!process.env.FRONTEND_DESTINATION && process.env.development) {
     throw new Error("Specify frontend build path.");
 }
 const app = express();
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
 app.use(ads);
-app.use(express.static(path.join(__dirname, process.env.FRONTEND_DESTINATION)));
+app.use(express.static(path.join(__dirname, process.env.FRONTEND_DESTINATION || './public')));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
