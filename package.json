@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "runall": "lerna run --parallel start"
+  },
   "workspaces": [
     "packages/*"
   ],
