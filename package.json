@@ -2,7 +2,9 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "runall": "lerna run --parallel start"
+    "runall": "lerna run --parallel start",
+    "buildall": "bash ./build.sh",
+    "prod": "node build/backend/server.js"
   },
   "workspaces": [
     "packages/*"
