@@ -16,7 +16,8 @@ app.use(cors());
 // app.use(upload.array());
 app.use(helmet());
 app.use(ads);
-// app.use(express.static());
+app.use(express.static('../frontend/build'));
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
