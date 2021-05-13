@@ -1,4 +1,5 @@
 import knex from 'knex';
+import Joi from 'joi';
 import { dbConfig } from '../config';
 const { attachPaginate } = require('knex-paginate');
 
@@ -12,6 +13,17 @@ export interface IAd {
   price: number;
   photos: string[];
 }
+
+export const validateAds = (doc: any) => {
+  const schema = Joi.object({
+    id: Joi.number(),
+    title: Joi.string().max(200, 'utf8').required(),
+    description: Joi.string().max(1000, 'utf8').required(),
+    price: Joi.number().required(),
+    photos: Joi.array().allow(Joi.link()).max(3).required(),
+  });
+  return schema.validate(doc);
+};
 
 export const isAd = (doc: any): doc is IAd => {
   const isStr = (a: any) => typeof a === 'string';

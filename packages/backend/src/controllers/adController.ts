@@ -1,5 +1,5 @@
-import { Ad, IAd, isAd } from '../models/ads';
 import { Request, Response } from 'express';
+import { Ad, IAd, isAd, validateAds } from '../models/ads';
 
 export const getAd = async (req: Request, res: Response) => {
   const id: number | null = parseInt((req.params.id as string), 10) || null;
@@ -16,9 +16,10 @@ export const getAdList = async (req: Request, res: Response) => {
   return res.send(ads);
 };
 
-// eslint-disable-next-line no-unused-vars
 export const createAd = async (req: Request, res: Response) => {
     const doc: IAd | any = req.body.ad;
+    const error = validateAds(doc).error;
+    if (error) return res.status(400).send({ error });
     if (!isAd(doc)) return res.status(400).send('Invalid ad passed.');
     const created = await Ad.createOne(doc);
     return res.send(created ? 'success' : 'error');
